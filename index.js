@@ -1,29 +1,25 @@
 const express = require('express');
-const path = require('path');
 const app = express();
+const path = require('path');
+
+//Sets static path.
+app.use(express.static(path.join(__dirname,'public')));
+
 
 const members = [
   {
     id: 1,
-    name: 'Hardik',
-    status: 'active'
+    name: 'Hardik'
   },
   {
     id: 2,
-    name: 'Soumya',
-    status: 'active'
-  },
-  {
-    id: 3,
-    name: 'Seema',
-    status: 'inactive'
+    name: 'Mangesh'
   }
 ];
 
+//Returns all members.
 app.get('/api/members',function(req,res){
   res.json(members);
 });
-
-app.use(express.static(path.join(__dirname,'public')));
 
 app.listen(3000);
