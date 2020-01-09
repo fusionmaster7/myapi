@@ -1,25 +1,16 @@
 const express = require('express');
-const app = express();
 const path = require('path');
+const route = require('./routes/api/members.js');
+const app = express();
 
-//Sets static path.
+//Sets Body Parser
+app.use(express.json());
+app.use(express.urlencoded({extended:false}));
+
+//Sets public Folder
 app.use(express.static(path.join(__dirname,'public')));
 
-
-const members = [
-  {
-    id: 1,
-    name: 'Hardik'
-  },
-  {
-    id: 2,
-    name: 'Mangesh'
-  }
-];
-
-//Returns all members.
-app.get('/api/members',function(req,res){
-  res.json(members);
-});
+//Router middleware
+app.use('/api/members',route);
 
 app.listen(3000);
