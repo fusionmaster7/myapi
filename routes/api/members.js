@@ -31,5 +31,20 @@ router.post('/',function(req,res){
   }
 });
 
+//Updates and existing member
+router.put('/:id',function(req,res){
+  const found = members.some(member=>member.id===parseInt(req.params.id));
+  if(found){
+    const updatedMember = req.body;
+    members.forEach((member)=>{
+      if(member.id===parseInt(req.params.id)){
+        member.name = updatedMember.name;
+        res.send("Member updated succesfully");
+      }
+    });
+  }else{
+    res.status(400).send("Member not found");
+  }
+})
 
 module.exports = router;
