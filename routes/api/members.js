@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const members = require('../../Members');
+let members = require('../../Members');
 
 //Gets all Members
 router.get('/',function(req,res){
@@ -47,4 +47,14 @@ router.put('/:id',function(req,res){
   }
 })
 
+//Delete a member
+router.delete('/:id',function(req,res){
+  const found = members.some(member=>member.id===parseInt(req.params.id));
+  if(found){
+    members = members.filter(member=>member.id!==parseInt(req.params.id));
+    res.json(members);
+  }else{
+    res.status(200).send("Member Not found");
+  }
+})
 module.exports = router;
